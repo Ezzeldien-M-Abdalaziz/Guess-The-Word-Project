@@ -44,7 +44,7 @@ h1{
                 pointer-events: none;
             }
             input{
-                margin: 0 5px;  s
+                margin: 0 5px;
                 height: 60px;
                 width: 60px;
                 text-align: center;
@@ -53,12 +53,29 @@ h1{
                 background: white;
                 border: none;
                 border-bottom:3px solid #333;
+                &:focus{
+                    outline-color: #ccc;
+                }
+                &.yes-in-place{
+                    background-color: #f89e13;
+                    border: #f89e13;
+                    color: white;
+                }
+                &.not-in-place{
+                    background-color: #18ba89;
+                    border: #18ba89;
+                    color: white;
+                }
+                &.no{
+                    background-color: #27303f;
+                    border: #27303f;
+                    color: white;
             }
         }
     }
 
     .key-colors{
-        text-align: center;        
+        text-align: center;      
         .key-color{ 
             padding: 15px;
             margin-bottom: 10px;
