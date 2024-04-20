@@ -18,7 +18,7 @@ function generateInput(){
         tryDiv.classList.add(`try-${i}`);
         tryDiv.innerHTML = `<span>Try ${i}</span>`;
 
-        if(i != 1) tryDiv.classList.add("disabled-inputs");  //remove later
+        if(i != 1) tryDiv.classList.add("disabled-inputs");  
 
         //create inputs
         for(let j = 1; j <= numberOfLetters; j++){
@@ -38,12 +38,26 @@ function generateInput(){
 
     //eventlistner to shift to the second input after writing just one letter
     const inputs = document.querySelectorAll('input');
+     //console.log(inputs);
     inputs.forEach((input,index)=> {
         //convert input to UpperCase
         input.addEventListener('input',function(e){
+            console.log(e);
             this.value = this.value.toUpperCase();
-            //console.log(index);
-            const nextInput = inputs[index + 1];
+            const nextInput = inputs[index + 1];  
+            if(nextInput) nextInput.focus();
+        });  
+
+        input.addEventListener("keydown" , function(e){   //evenyhandler for using the arrows
+            const currentIndex = Array.from(inputs).indexOf(this);   //another way other than "const nextInput = inputs[index + 1]; "
+            if(e.key === "ArrowRight"){
+                const nextInput = currentIndex + 1;
+                if(nextInput < inputs.length) inputs[nextInput].focus();
+            }
+            if(e.key === "ArrowLeft"){
+                const previousInput = currentIndex - 1;
+                if(previousInput >= 0) inputs[previousInput].focus();
+            }
         });
     });
 
