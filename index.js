@@ -9,6 +9,10 @@ let numberOfTries = 6;
 let numberOfLetters = 6;
 let currentTry = 1;
 
+let wordToGuess = "";
+let words = ["Create","update","delete","Master","branch","Mainly","Elzero","school"];
+wordToGuess = words[Math.floor(Math.random() * words.length)].toLowerCase();
+
 function generateInput(){
     const inputsContainer = document.querySelector(".inputs");
 
@@ -42,7 +46,7 @@ function generateInput(){
     inputs.forEach((input,index)=> {
         //convert input to UpperCase
         input.addEventListener('input',function(e){
-            console.log(e);
+            // console.log(e);
             this.value = this.value.toUpperCase();
             const nextInput = inputs[index + 1];  
             if(nextInput) nextInput.focus();
@@ -60,8 +64,22 @@ function generateInput(){
             }
         });
     });
+}
 
-} 
+    const guessButton = document.querySelector(".check");
+    guessButton.addEventListener("click",handelGuesses);
+    // const word = document.querySelectorAll(".try-1 > input").forEach(letter=>{
+    //     console.log(letter.value);
+    // });
+    // // console.log(word);
+    // // const word = 
+    function handelGuesses(e){
+    
+        // word.map(input =>input.charCodeAt(0)).rdeuce((t,v)=>t+v,0);
+    let inputs = document.querySelectorAll(".try-1 > input").forEach(letter=>{
+        let word = word + letter.value;
+    });
+    }
 
 window.onload = function(){
     generateInput();
