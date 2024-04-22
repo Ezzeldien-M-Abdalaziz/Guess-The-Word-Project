@@ -28,7 +28,7 @@ function generateInput(){
         for(let j = 1; j <= numberOfLetters; j++){
             const input = document.createElement("input");
             input.type = "text";
-            input.id = `Guess-${i}-Letter-${j}`;
+            input.id = `guess-${i}-Letter-${j}`;
             input.setAttribute("maxLength","1");
             tryDiv.appendChild(input);
         }
@@ -60,7 +60,7 @@ function generateInput(){
             }
             if(e.key === "ArrowLeft"){
                 const previousInput = currentIndex - 1;
-                if(previousInput >= 0) inputs[previousInput].focus();
+                if(previousInput >= 0) inputs[previousInput].focus(); 
             }
         });
     });
@@ -68,18 +68,28 @@ function generateInput(){
 
     const guessButton = document.querySelector(".check");
     guessButton.addEventListener("click",handelGuesses);
-    // const word = document.querySelectorAll(".try-1 > input").forEach(letter=>{
-    //     console.log(letter.value);
-    // });
-    // // console.log(word);
-    // // const word = 
+
     function handelGuesses(e){
-    
-        // word.map(input =>input.charCodeAt(0)).rdeuce((t,v)=>t+v,0);
-    let inputs = document.querySelectorAll(".try-1 > input").forEach(letter=>{
-        let word = word + letter.value;
-    });
-    }
+        let successGuess = true; 
+        for(let i=1; i<=numberOfLetters;i++){
+            const inputField = document.querySelector(`#guess-${currentTry}-Letter-${i}`); 
+            const letter = inputField.value.toLowerCase();
+        }
+        
+
+    //     document.querySelectorAll(".try-1 > input").forEach(letter=>{
+    //         successGuess = successGuess + letter.value;
+    // });
+    // console.log(successGuess);
+    // let the_word = wordToGuess.toUpperCase().split('');
+    // console.log(the_word);
+    // if([...successGuess].some(char => the_word.includes(char))) {
+        
+
+    // }else{
+    //     console.log('no');
+    // }
+}
 
 window.onload = function(){
     generateInput();
