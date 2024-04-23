@@ -104,10 +104,24 @@ function generateInput(){
             guessButton.disabled = true;
         }else{
             document.querySelector(`.try-${currentTry}`).classList.add("disabled-inputs");
+
+            const currentTryInputs = document.querySelectorAll(`.try-${currentTry} > input`);
+            currentTryInputs.forEach((input)=>(input.disabled = true));
+
             currentTry++;
+
             document.querySelector(`.try-${currentTry}`).classList.remove("disabled-inputs");
-            document.querySelectorAll(`.try-${currentTry} > input`).forEach((input)=>(input.disabled = false));
+            const nextTryInputs = document.querySelectorAll(`.try-${currentTry} > input`);
+            nextTryInputs.forEach((input)=>(input.disabled = false));
             document.querySelector(`.try-${currentTry}`).children[1].focus();
+
+            let el = document.querySelector(`.try-${currentTry}`);
+            if(el){
+            messageArea.innerHTML = `you lose The Word Is <span>${wordToGuess}</span>`;
+            guessButton.disabled = true;
+            }else{
+
+            }
         }
         }
 
