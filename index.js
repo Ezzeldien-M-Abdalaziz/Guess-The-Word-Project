@@ -110,20 +110,23 @@ function generateInput(){
 
             currentTry++;
 
-            document.querySelector(`.try-${currentTry}`).classList.remove("disabled-inputs");
             const nextTryInputs = document.querySelectorAll(`.try-${currentTry} > input`);
             nextTryInputs.forEach((input)=>(input.disabled = false));
-            document.querySelector(`.try-${currentTry}`).children[1].focus();
+
 
             let el = document.querySelector(`.try-${currentTry}`);
             if(el){
-            messageArea.innerHTML = `you lose The Word Is <span>${wordToGuess}</span>`;
-            guessButton.disabled = true;
-            }else{
 
+                document.querySelector(`.try-${currentTry}`).classList.remove("disabled-inputs");
+                document.querySelector(`.try-${currentTry}`).children[1].focus();
+                
+            }else{
+                messageArea.innerHTML = `you lose The Word Is <span>${wordToGuess}</span>`;
+                guessButton.disabled = true;
             }
+
         }
-        }
+    }
 
 window.onload = function(){
     generateInput();
