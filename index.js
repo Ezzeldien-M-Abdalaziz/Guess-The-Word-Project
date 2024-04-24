@@ -8,11 +8,24 @@ document.querySelector("footer").innerHTML = `${gameName} Game Created By Ezzeld
 let numberOfTries = 6;
 let numberOfLetters = 6;
 let currentTry = 1;
+let NumbsOfHints = 2;
 
+//manage words
 let wordToGuess = "";
 let words = ["Create","update","delete","Master","branch","Mainly","Elzero","school"];
 wordToGuess = words[Math.floor(Math.random() * words.length)].toLowerCase();
 let messageArea = document.querySelector(".message");
+
+//manage Hints
+document.querySelector(".hint span").innerHTML = NumbsOfHints;
+const letters = wordToGuess.split('');
+let randomLetter = '';
+    function hinter(){
+        randomLetter = letters[Math.floor(Math.random() * letters.length)];
+        letters.splice(letters.indexOf(randomLetter),1);
+    }
+        
+
 
 
 function generateInput(){
@@ -68,6 +81,7 @@ function generateInput(){
     });
 }
 
+                            //check word button
     const guessButton = document.querySelector(".check");
     guessButton.addEventListener("click",handelGuesses);
         console.log(wordToGuess);
@@ -127,6 +141,37 @@ function generateInput(){
 
         }
     }
+
+                                //hint button
+    
+    const hintButton = document.querySelector('.hint');
+    hintButton.addEventListener("click",handelHint);
+
+    function handelHint(e){
+        if(NumbsOfHints > 0){
+            NumbsOfHints--;
+            document.querySelector(".hint span").innerHTML = NumbsOfHints;
+        }
+            if(NumbsOfHints === 0){
+                document.querySelector('.hint').disabled = true;
+                document.querySelector(".hint span").innerHTML = `No more`;
+            }
+            
+        const enabledInputs = document.querySelectorAll("input:not([disabled])");
+            
+        hinter();
+        console.log(randomLetter);
+        console.log(letters);
+
+        enabledInputs.forEach((input,index) => {
+            if(!input.value && input){
+                input.value = randomLetter.toUpperCase();
+            
+        }
+        });
+    }
+
+
 
 window.onload = function(){
     generateInput();
