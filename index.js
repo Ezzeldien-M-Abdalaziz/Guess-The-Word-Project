@@ -116,6 +116,7 @@ function generateInput(){
 
             //disable guess button
             guessButton.disabled = true;
+            hintButton.disabled = true;
         }else{
             document.querySelector(`.try-${currentTry}`).classList.add("disabled-inputs");
 
@@ -137,6 +138,7 @@ function generateInput(){
             }else{
                 messageArea.innerHTML = `you lose The Word Is <span>${wordToGuess}</span>`;
                 guessButton.disabled = true;
+                hintButton.disabled = true;
             }
 
         }
@@ -157,21 +159,55 @@ function generateInput(){
                 document.querySelector(".hint span").innerHTML = `No more`;
             }
             
+            //select the inputs from this try
         const enabledInputs = document.querySelectorAll("input:not([disabled])");
-            
-        hinter();
-        console.log(randomLetter);
-        console.log(letters);
+            //select the inputs which is empty after pressing hint
+        const emptyEnabledInputs = Array.from(enabledInputs).filter((input) => input.value === "");
+            // console.log(emptyEnabledInputs);
 
+            if(emptyEnabledInputs){
+                const randomIndex = Math.floor(Math.random() * emptyEnabledInputs.length);
+                // console.log(randomIndex);
+                const randomInput = emptyEnabledInputs[randomIndex];
+                // console.log(randomInput);
+                const indexToFill = Array.from(enabledInputs).indexOf(randomInput );
+                // console.log(indexToFill);
+                if(indexToFill !== -1){
+                    randomInput.value = wordToGuess[indexToFill].toUpperCase();
+                    randomInput.classList.add("yes-in-place");
+                }
+            }
+
+            //another way to hint a letter
+            /*
+        let filled = false;
         enabledInputs.forEach((input,index) => {
-            if(!input.value && input){
-                input.value = randomLetter.toUpperCase();
-            
-        }
+            if(!filled && !input.value){
+                input.value = wordToGuess[index].toUpperCase();
+                input.classList.add("yes-in-place");
+                filled = true;
+            }
         });
+        */
     }
 
+    function handleBackSpace(e){
+        if(e.key === "Backspace"){
+            const inputs = document.querySelectorAll("input:not([disabled])");
+            const currentIndex = Array.from(inputs).indexOf(document.activeElement);  //**Important**  document.activeElement => is the input that is active now
+            // console.log(currentIndex);
+            if(currentIndex > 0){
+                if(inputs[currentIndex].value){
+                    inputs[currentIndex].value = '';
+                }else{
+                    inputs[currentIndex - 1].focus();
+                    inputs[currentIndex - 1].value = '';
+                }
+            }
+        }
+    }
 
+    document.addEventListener("keydown" , handleBackSpace)
 
 window.onload = function(){
     generateInput();
